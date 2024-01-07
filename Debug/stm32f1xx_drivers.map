@@ -231,6 +231,59 @@ Discarded input sections
  .text          0x0000000000000000       0x14 ./Startup/startup_stm32f103c8tx.o
  .data          0x0000000000000000        0x0 ./Startup/startup_stm32f103c8tx.o
  .bss           0x0000000000000000        0x0 ./Startup/startup_stm32f103c8tx.o
+ .group         0x0000000000000000        0xc ./drivers/Src/stm32f103xx_gpio_driver.o
+ .group         0x0000000000000000        0xc ./drivers/Src/stm32f103xx_gpio_driver.o
+ .group         0x0000000000000000        0xc ./drivers/Src/stm32f103xx_gpio_driver.o
+ .group         0x0000000000000000        0xc ./drivers/Src/stm32f103xx_gpio_driver.o
+ .group         0x0000000000000000        0xc ./drivers/Src/stm32f103xx_gpio_driver.o
+ .group         0x0000000000000000        0xc ./drivers/Src/stm32f103xx_gpio_driver.o
+ .group         0x0000000000000000        0xc ./drivers/Src/stm32f103xx_gpio_driver.o
+ .group         0x0000000000000000        0xc ./drivers/Src/stm32f103xx_gpio_driver.o
+ .group         0x0000000000000000        0xc ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text          0x0000000000000000        0x0 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .data          0x0000000000000000        0x0 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .bss           0x0000000000000000        0x0 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_PeriClockControl
+                0x0000000000000000      0x170 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_Init
+                0x0000000000000000      0x170 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_DeInit
+                0x0000000000000000      0x120 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_ReadFromInputPin
+                0x0000000000000000       0x18 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_ReadFromInputPort
+                0x0000000000000000       0x14 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_WriteToOutputPin
+                0x0000000000000000       0x1a ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_WriteToOutputPort
+                0x0000000000000000       0x16 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_ToggleOutputPin
+                0x0000000000000000       0x16 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_IRQConfig
+                0x0000000000000000       0x1c ./drivers/Src/stm32f103xx_gpio_driver.o
+ .text.GPIO_IRQHandling
+                0x0000000000000000       0x14 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_info    0x0000000000000000      0x46c ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_abbrev  0x0000000000000000       0xf3 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_aranges
+                0x0000000000000000       0x68 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_ranges  0x0000000000000000       0x58 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000       0x81 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000      0xa72 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000       0x22 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000       0x8e ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000       0x51 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000      0x103 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000       0x6a ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000      0x1df ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000      0x224 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000       0xd0 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_line    0x0000000000000000      0x714 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_str     0x0000000000000000     0x4ea0 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .comment       0x0000000000000000       0x51 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_frame   0x0000000000000000      0x1a0 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .ARM.attributes
+                0x0000000000000000       0x2d ./drivers/Src/stm32f103xx_gpio_driver.o
  .text          0x0000000000000000        0x0 c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
  .data          0x0000000000000000        0x0 c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
  .bss           0x0000000000000000        0x0 c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
@@ -293,6 +346,7 @@ LOAD ./Src/main.o
 LOAD ./Src/syscalls.o
 LOAD ./Src/sysmem.o
 LOAD ./Startup/startup_stm32f103c8tx.o
+LOAD ./drivers/Src/stm32f103xx_gpio_driver.o
 START GROUP
 LOAD c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a
 LOAD c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a
@@ -564,7 +618,7 @@ LOAD c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_ranges  0x0000000000000000       0x10 ./Src/main.o
  .debug_ranges  0x0000000000000010       0x20 ./Startup/startup_stm32f103c8tx.o
 
-.debug_macro    0x0000000000000000      0xf59
+.debug_macro    0x0000000000000000     0x1155
  .debug_macro   0x0000000000000000       0x6c ./Src/main.o
  .debug_macro   0x000000000000006c      0xa72 ./Src/main.o
  .debug_macro   0x0000000000000ade       0x22 ./Src/main.o
@@ -573,16 +627,16 @@ LOAD c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_macro   0x0000000000000bdf      0x103 ./Src/main.o
  .debug_macro   0x0000000000000ce2       0x6a ./Src/main.o
  .debug_macro   0x0000000000000d4c      0x1df ./Src/main.o
- .debug_macro   0x0000000000000f2b       0x2e ./Src/main.o
+ .debug_macro   0x0000000000000f2b      0x22a ./Src/main.o
 
 .debug_line     0x0000000000000000      0x4a4
  .debug_line    0x0000000000000000      0x420 ./Src/main.o
  .debug_line    0x0000000000000420       0x84 ./Startup/startup_stm32f103c8tx.o
 
-.debug_str      0x0000000000000000     0x3b62
- .debug_str     0x0000000000000000     0x3b31 ./Src/main.o
-                                       0x3c99 (size before relaxing)
- .debug_str     0x0000000000003b31       0x31 ./Startup/startup_stm32f103c8tx.o
+.debug_str      0x0000000000000000     0x48d1
+ .debug_str     0x0000000000000000     0x48a0 ./Src/main.o
+                                       0x49fb (size before relaxing)
+ .debug_str     0x00000000000048a0       0x31 ./Startup/startup_stm32f103c8tx.o
                                          0xc4 (size before relaxing)
 
 .comment        0x0000000000000000       0x50
