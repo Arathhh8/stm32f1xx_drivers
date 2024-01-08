@@ -146,24 +146,106 @@ void GPIO_DeInit(GPIO_Handle_t *pGPIOx){
 	}
 }
 
-/*
- * Data read and write
+/**************************************************************************************************
+ * @fn 					- GPIO_ReadFromInputPin
+ *
+ * @brief				-
+ *
+ * @param[in]			-
+ * @param[in]			-
+ * @param[in]			-
+ *
+ * @return				- 0 or 1
+ *
+ * @Note				- none
  */
 
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber){
-
+	uint8_t value;
+	value = ((uint8_t)(pGPIOx->IDR >> PinNumber) & 0x00000001);
+	return value;
 }
+
+/**************************************************************************************************
+ * @fn 					- GPIO_ReadFromInputPort
+ *
+ * @brief				-
+ *
+ * @param[in]			-
+ * @param[in]			-
+ * @param[in]			-
+ *
+ * @return				- 0 or 1
+ *
+ * @Note				- none
+ */
+
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx){
-
+	uint16_t value;
+	value = (uint16_t)pGPIOx->IDR;
+	return value;
 }
+
+/**************************************************************************************************
+ * @fn 					- GPIO_WriteToOutputPin
+ *
+ * @brief				-
+ *
+ * @param[in]			-
+ * @param[in]			-
+ * @param[in]			-
+ *
+ * @return				- 0 or 1
+ *
+ * @Note				- none
+ */
+
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value){
-
+	if(Value == GPIO_PIN_SET){
+		// write 1 to the output data register at the bit field corresponding pin number
+		pGPIOx->ODR |= (1 << PinNumber);
+	}else{
+		// write 0
+		pGPIOx->ODR &= ~(1 << PinNumber);
+	}
 }
+
+/**************************************************************************************************
+ * @fn 					- GPIO_WriteToOutputPort
+ *
+ * @brief				-
+ *
+ * @param[in]			-
+ * @param[in]			-
+ * @param[in]			-
+ *
+ * @return				- 0 or 1
+ *
+ * @Note				- none
+ */
+
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value){
 
+	pGPIOx->ODR = Value;
 }
+
+/**************************************************************************************************
+ * @fn 					- GPIO_ToggleOutputPin
+ *
+ * @brief				-
+ *
+ * @param[in]			-
+ * @param[in]			-
+ * @param[in]			-
+ *
+ * @return				- 0 or 1
+ *
+ * @Note				- none
+ */
+
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber){
 
+	pGPIOx->ODR ^= (1 << PinNumber);
 }
 
 /*
