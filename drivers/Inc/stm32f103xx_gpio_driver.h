@@ -94,8 +94,8 @@ typedef struct{
  * @GPIO_PIN_PPOD
  * GPIO pin possible push-pull or open-drain config
  */
-#define GPIO_MODE_PD				0
-#define GPIO_MODE_PU				1
+#define GPIO_MODE_PP				0
+#define GPIO_MODE_OD				1
 
 /**************************************************************************************************************
  *								APIs supported by this driver

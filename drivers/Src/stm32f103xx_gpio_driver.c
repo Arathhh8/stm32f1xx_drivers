@@ -82,11 +82,13 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 	uint32_t temp = 0; // temporal variable
 
 	// 1. Configure the speed
-	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+	//temp = 2;
 	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber < 8){
+		temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
 		pGPIOHandle->pGPIOx->CRL &= ~(0x3 << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
 		pGPIOHandle->pGPIOx->CRL |= temp; //setting
 	}else{
+		temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << (4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8)));
 		pGPIOHandle->pGPIOx->CRH &= ~(0x3 << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
 		pGPIOHandle->pGPIOx->CRH |= temp;
 	}
@@ -95,14 +97,15 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 	temp = 0;
 	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_AF_OD){
 		// then non interrupt mode
-		temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-		if(pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber < pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber < 8){
+		if(pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber < 8){
 			// then the GPIO select is between Pin0 and Pin7 -> CRL
+			temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
 			pGPIOHandle->pGPIOx->CRL &= ~(0x3 << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
 			pGPIOHandle->pGPIOx->CRL |= temp;
 		}else{
 			// then the GPIO select is between Pin8 and Pin16 -> CRH
-			pGPIOHandle->pGPIOx->CRH &= ~(0x3 << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
+			temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 + 4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8)));
+			pGPIOHandle->pGPIOx->CRH &= ~(0x3 << (2 + 4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8))); //clearing
 			pGPIOHandle->pGPIOx->CRH |= temp;
 		}
 

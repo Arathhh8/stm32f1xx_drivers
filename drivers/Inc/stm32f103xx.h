@@ -67,7 +67,8 @@
  * TODO : Complete for all other peripherals
 */
 
-#define RCC_BASEADDR 				(AHBPERIPH_BASE + 0x1000)
+//#define RCC_BASEADDR 				(AHBPERIPH_BASE + 0x1000)
+#define RCC_BASEADDR 				(0x40021000)
 #define CRC_BASEADDR 				(AHBPERIPH_BASE + 0xB000)
 
 
@@ -226,7 +227,7 @@ typedef struct{
 
 
 
-
+#include"stm32f103xx_gpio_driver.h"
 
 
 
