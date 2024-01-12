@@ -19,15 +19,15 @@ int main(){
 
 	GpioLed.pGPIOx = GPIOC;
 	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13;
-	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT_PP;
+	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT_OD;
 	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_OUT_MHZ_50;
-	GpioLed.GPIO_PinConfig.GPIO_PinOPType = GPIO_MODE_PP;
-	//GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_MODE_PD;
+	GpioLed.GPIO_PinConfig.GPIO_PinOPType = GPIO_MODE_OD;
+	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_MODE_PD;
 
 	GPIO_Init(&GpioLed);
 
 	while(1){
-		GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_NO_13);
+		//GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_NO_13);
 		delay();
 	}
 

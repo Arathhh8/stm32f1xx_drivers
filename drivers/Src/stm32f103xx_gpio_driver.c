@@ -100,7 +100,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 		if(pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber < 8){
 			// then the GPIO select is between Pin0 and Pin7 -> CRL
 			temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-			pGPIOHandle->pGPIOx->CRL &= ~(0x3 << (4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
+			pGPIOHandle->pGPIOx->CRL &= ~(0x3 << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
 			pGPIOHandle->pGPIOx->CRL |= temp;
 		}else{
 			// then the GPIO select is between Pin8 and Pin16 -> CRH
