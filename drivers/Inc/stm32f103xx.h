@@ -11,6 +11,7 @@
 #include<stdint.h>
 
 #define __vo volatile
+#define NO_CONFIG 7
 
 /*
  * base address of Flash and SRAM memories
@@ -36,17 +37,25 @@
  * TODO : Complete for all other peripherals
 */
 
-#define GPIOA_BASEADDR				(APB2PERIPH_BASE + 0x0800)
-#define GPIOB_BASEADDR				(APB2PERIPH_BASE + 0x0C00)
-#define GPIOC_BASEADDR				(APB2PERIPH_BASE + 0x1000)
-#define GPIOD_BASEADDR				(APB2PERIPH_BASE + 0x1400)
-#define GPIOE_BASEADDR				(APB2PERIPH_BASE + 0x1800)
-#define GPIOF_BASEADDR				(APB2PERIPH_BASE + 0x1C00)
-#define GPIOG_BASEADDR				(APB2PERIPH_BASE + 0x2000)
-#define EXTI_BASEADDR				(APB2PERIPH_BASE + 0x0400)
-#define SPI1_BASEADDR				(APB2PERIPH_BASE + 0x3000)
+#define TIM11_BASEADDR				(APB2PERIPH_BASE + 0x5400)
+#define TIM10_BASEADDR				(APB2PERIPH_BASE + 0x5000)
+#define TIM9_BASEADDR				(APB2PERIPH_BASE + 0x4C00)
+#define ADC3_BASEADDR				(APB2PERIPH_BASE + 0x3C00)
 #define USART1_BASEADDR				(APB2PERIPH_BASE + 0x3800)
+#define TIM8_BASEADDR				(APB2PERIPH_BASE + 0x3400)
+#define SPI1_BASEADDR				(APB2PERIPH_BASE + 0x3000)
 #define TIM1_BASEADDR				(APB2PERIPH_BASE + 0x2C00)
+#define ADC2_BASEADDR				(APB2PERIPH_BASE + 0x2800)
+#define ADC1_BASEADDR				(APB2PERIPH_BASE + 0x2400)
+#define GPIOG_BASEADDR				(APB2PERIPH_BASE + 0x2000)
+#define GPIOF_BASEADDR				(APB2PERIPH_BASE + 0x1C00)
+#define GPIOE_BASEADDR				(APB2PERIPH_BASE + 0x1800)
+#define GPIOD_BASEADDR				(APB2PERIPH_BASE + 0x1400)
+#define GPIOC_BASEADDR				(APB2PERIPH_BASE + 0x1000)
+#define GPIOB_BASEADDR				(APB2PERIPH_BASE + 0x0C00)
+#define GPIOA_BASEADDR				(APB2PERIPH_BASE + 0x0800)
+#define EXTI_BASEADDR				(APB2PERIPH_BASE + 0x0400)
+#define AFIO_BASEADDR				(APB2PERIPH_BASE + 0x0000)
 
 /*
  * Base address of peripherals which are handing on APB1 bus
@@ -99,6 +108,31 @@ typedef struct{
 	__vo uint32_t CSR;					// Control/status register					Address offset: 0x24
 }RCC_RegDef_t;
 
+/*
+ *	Peripheral register definition structure for EXTI
+ */
+
+typedef struct{
+	__vo uint32_t IMR;					// Clock control register					Address offset: 0x00
+	__vo uint32_t EMR;					// Clock configuration register				Address offset: 0x04
+	__vo uint32_t RTSR;					// Clock interrupt register					Address offset: 0x08
+	__vo uint32_t FTSR;				// APB2 peripheral reset register			Address offset: 0x0C
+	__vo uint32_t SWIER;				// APB1 peripheral reset register			Address offset: 0x10
+	__vo uint32_t PR;				// AHB peripheral clock enable register		Address offset: 0x14
+}EXTI_RegDef_t;
+
+
+/*
+ *	Peripheral register definition structure for EXTI
+ */
+
+typedef struct{
+	__vo uint32_t EVCR;					// Address offset: 0x00
+	__vo uint32_t MAPR;					// Address offset: 0x04
+	__vo uint32_t EXTICR[4];			// Address offset: 0x08-0x14
+	uint32_t RESERVERD;					// Reserved: 0x18
+	__vo uint32_t MAPR2;				// Address offset: 0x00
+}AFIO_RegDef_t;
 
 /*
  *	Peripheral definitions (Peripherals base address typecasted to xxx_RegGef_t)
@@ -113,7 +147,8 @@ typedef struct{
 #define GPIOG			((GPIO_RegDef_t*)GPIOG_BASEADDR)
 
 #define RCC				((RCC_RegDef_t*)RCC_BASEADDR)
-
+#define EXTI			((EXTI_RegDef_t*)EXTI_BASEADDR)
+#define AFIO			((AFIO_RegDef_t*)AFIO_BASEADDR)
 
 /*
  * Clock Enable Macros for GPIOx peripherals
@@ -157,6 +192,11 @@ typedef struct{
  */
 #define UART4_PCLK_EN()		(RCC->APB2ENR |= (1 << 19))
 #define UART5_PCLK_EN()		(RCC->APB2ENR |= (1 << 20))
+
+/*
+ * Clock Enable Macros for generic peripherals
+ */
+#define AFIO_PCLK_EN()		(RCC->APB2ENR |= (1 << 0))
 
 /***************************** disable peripherals CLK *****************************/
 
@@ -212,7 +252,13 @@ typedef struct{
 #define GPIOF_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 7));	(RCC->APB2RSTR |= (1 << 2));}while(0)
 #define GPIOG_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 8));	(RCC->APB2RSTR |= (1 << 2));}while(0)
 
-
+#define GPIO_BASEADDR_TO_CODE(x)	((x == GPIOA) ? 0 :\
+									 (x == GPIOB) ? 1 :\
+									 (x == GPIOC) ? 2 :\
+									 (x == GPIOD) ? 3 :\
+									 (x == GPIOE) ? 4 :\
+									 (x == GPIOF) ? 5 :\
+									 (x == GPIOG) ? 6 :0)
 // some generic macros
 
 #define ENABLE 				1
@@ -221,6 +267,8 @@ typedef struct{
 #define RESET 				DISABLE
 #define GPIO_PIN_SET		SET
 #define GPIO_PIN_RESET		RESET
+#define HIGH 1
+#define LOW  0
 
 
 

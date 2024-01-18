@@ -1,10 +1,9 @@
 /*
- * 002led_button.c
+ * 003led_button_ext.c
  *
- *  Created on: Jan 11, 2024
+ *  Created on: Jan 16, 2024
  *      Author: arath
  */
-
 
 #include"stm32f103xx.h"
 
@@ -16,14 +15,14 @@ int main(){
 
 	GPIO_Handle_t GpioLed, GpioBtn;
 
-	GpioLed.pGPIOx = GPIOC;
-	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13;
+	GpioLed.pGPIOx = GPIOB;
+	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_0;
 	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT_PP;
 	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_OUT_MHZ_50;
 	GpioLed.GPIO_PinConfig.GPIO_PinOPType = GPIO_MODE_OUT_PP;
 	//GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_MODE_PP;
 
-	GPIO_PeriClockControl(GPIOC, ENABLE);
+	GPIO_PeriClockControl(GPIOB, ENABLE);
 	GPIO_Init(&GpioLed);
 
 	GpioBtn.pGPIOx = GPIOA;
@@ -39,7 +38,7 @@ int main(){
 	while(1){
 		if(GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_NO_0) == LOW){
 			delay();
-			GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_NO_13);
+			GPIO_ToggleOutputPin(GPIOB, GPIO_PIN_NO_0);
 		}
 
 		}

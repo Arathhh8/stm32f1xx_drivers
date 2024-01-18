@@ -7,6 +7,7 @@
 
 #include"stm32f103xx_gpio_driver.h"
 
+
 /*
  * Peripheral Clock setup
  */
@@ -111,6 +112,32 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 
 	}else{
 		// this part will code later . (interrupt mode)
+		if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_IT_FT){
+			// 1. Configure the FTSR (Falling trigger detection register)
+			EXTI->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			// clear the corresponding RTSR bit
+			EXTI->RTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+
+		}else if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_IT_RT){
+			// 1. Configure the RTSR (Rising trigger detection register)
+			EXTI->RTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			// clear the corresponding FTSR bit
+			EXTI->FTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		}else if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_IT_RFT){
+			// 1. Configure both FTSR and RTSR
+			EXTI->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+			// clear the corresponding RTSR bit
+			EXTI->RTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+		}
+
+		// 2. Config the GPIO port selection in SYSCFG_EXTICR
+			uint8_t temp1 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber / 4;
+			uint8_t temp2 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber % 4;
+			uint8_t portCode = GPIO_BASEADDR_TO_CODE(pGPIOHandle->pGPIOx);
+			AFIO_PCLK_EN();
+			AFIO->EXTICR[temp1] = portCode << (temp2 * 4);
+		// 3. Enable the EXTI interrupt delivery using IMR
+		EXTI->IMR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 	}
 
 	// 3. Configure pupd settings
@@ -121,9 +148,11 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 
 	// 4. Configure the optype   PUSH-PULL or OPEN DRAIN
 	temp = 0;
-	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType << (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-	pGPIOHandle->pGPIOx->ODR &= ~(0x1 << (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
-	pGPIOHandle->pGPIOx->ODR |= temp;
+	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType == NO_CONFIG){
+		temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType << (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+		pGPIOHandle->pGPIOx->ODR &= ~(0x1 << (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
+		pGPIOHandle->pGPIOx->ODR |= temp;
+	}
 
 	// 5. Configure the alt functionality
 	temp = 0;

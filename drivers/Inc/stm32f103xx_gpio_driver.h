@@ -79,9 +79,9 @@ typedef struct{
 #define GPIO_MODE_AF_PP 			2
 #define GPIO_MODE_AF_OD 			3
 // in interrupt mode
-#define GPIO_MODE_IT_FT				0
-#define GPIO_MODE_IT_RT				1
-#define GPIO_MODE_IT_RFT			2
+#define GPIO_MODE_IT_FT				4
+#define GPIO_MODE_IT_RT				5
+#define GPIO_MODE_IT_RFT			6
 
 /*
  * @GPIO_PIN_PUPD

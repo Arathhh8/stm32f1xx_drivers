@@ -27,7 +27,7 @@ int main(){
 	GPIO_Init(&GpioLed);
 
 	while(1){
-		//GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_NO_13);
+		GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_NO_13);
 		delay();
 	}
 
