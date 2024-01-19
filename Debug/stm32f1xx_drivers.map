@@ -253,7 +253,7 @@ Discarded input sections
  .text.GPIO_WriteToOutputPort
                 0x0000000000000000       0x1c ./drivers/Src/stm32f103xx_gpio_driver.o
  .text.GPIO_IRQConfig
-                0x0000000000000000       0x1c ./drivers/Src/stm32f103xx_gpio_driver.o
+                0x0000000000000000      0x108 ./drivers/Src/stm32f103xx_gpio_driver.o
  .text.GPIO_IRQHandling
                 0x0000000000000000       0x14 ./drivers/Src/stm32f103xx_gpio_driver.o
  .debug_macro   0x0000000000000000      0xa72 ./drivers/Src/stm32f103xx_gpio_driver.o
@@ -263,7 +263,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x103 ./drivers/Src/stm32f103xx_gpio_driver.o
  .debug_macro   0x0000000000000000       0x6a ./drivers/Src/stm32f103xx_gpio_driver.o
  .debug_macro   0x0000000000000000      0x1df ./drivers/Src/stm32f103xx_gpio_driver.o
- .debug_macro   0x0000000000000000      0x293 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000000      0x2f4 ./drivers/Src/stm32f103xx_gpio_driver.o
  .debug_macro   0x0000000000000000       0xd0 ./drivers/Src/stm32f103xx_gpio_driver.o
  .text          0x0000000000000000        0x0 c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
  .data          0x0000000000000000        0x0 c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
@@ -620,7 +620,7 @@ LOAD c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_ranges  0x0000000000000018       0x20 ./Startup/startup_stm32f103c8tx.o
  .debug_ranges  0x0000000000000038       0x58 ./drivers/Src/stm32f103xx_gpio_driver.o
 
-.debug_macro    0x0000000000000000     0x132e
+.debug_macro    0x0000000000000000     0x138f
  .debug_macro   0x0000000000000000       0x86 ./Src/003led_button_ext.o
  .debug_macro   0x0000000000000086      0xa72 ./Src/003led_button_ext.o
  .debug_macro   0x0000000000000af8       0x22 ./Src/003led_button_ext.o
@@ -629,22 +629,22 @@ LOAD c:/st/stm32cubeide_1.9.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_macro   0x0000000000000bf9      0x103 ./Src/003led_button_ext.o
  .debug_macro   0x0000000000000cfc       0x6a ./Src/003led_button_ext.o
  .debug_macro   0x0000000000000d66      0x1df ./Src/003led_button_ext.o
- .debug_macro   0x0000000000000f45      0x293 ./Src/003led_button_ext.o
- .debug_macro   0x00000000000011d8       0xd0 ./Src/003led_button_ext.o
- .debug_macro   0x00000000000012a8       0x86 ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_macro   0x0000000000000f45      0x2f4 ./Src/003led_button_ext.o
+ .debug_macro   0x0000000000001239       0xd0 ./Src/003led_button_ext.o
+ .debug_macro   0x0000000000001309       0x86 ./drivers/Src/stm32f103xx_gpio_driver.o
 
-.debug_line     0x0000000000000000      0xe12
+.debug_line     0x0000000000000000      0xe99
  .debug_line    0x0000000000000000      0x4a1 ./Src/003led_button_ext.o
  .debug_line    0x00000000000004a1       0x84 ./Startup/startup_stm32f103c8tx.o
- .debug_line    0x0000000000000525      0x8ed ./drivers/Src/stm32f103xx_gpio_driver.o
+ .debug_line    0x0000000000000525      0x974 ./drivers/Src/stm32f103xx_gpio_driver.o
 
-.debug_str      0x0000000000000000     0x507b
- .debug_str     0x0000000000000000     0x4eca ./Src/003led_button_ext.o
-                                       0x5036 (size before relaxing)
- .debug_str     0x0000000000004eca       0x31 ./Startup/startup_stm32f103c8tx.o
+.debug_str      0x0000000000000000     0x522d
+ .debug_str     0x0000000000000000     0x507c ./Src/003led_button_ext.o
+                                       0x51e8 (size before relaxing)
+ .debug_str     0x000000000000507c       0x31 ./Startup/startup_stm32f103c8tx.o
                                          0xc4 (size before relaxing)
- .debug_str     0x0000000000004efb      0x180 ./drivers/Src/stm32f103xx_gpio_driver.o
-                                       0x5193 (size before relaxing)
+ .debug_str     0x00000000000050ad      0x180 ./drivers/Src/stm32f103xx_gpio_driver.o
+                                       0x5345 (size before relaxing)
 
 .comment        0x0000000000000000       0x50
  .comment       0x0000000000000000       0x50 ./Src/003led_button_ext.o

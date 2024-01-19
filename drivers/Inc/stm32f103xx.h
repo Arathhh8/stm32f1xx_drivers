@@ -13,6 +13,27 @@
 #define __vo volatile
 #define NO_CONFIG 7
 
+/*************************************** START: Processor Specific Details ***************************************/
+/*
+ * ARM Cortex M3 Processor NVIC ISERx Register Addresses  (Interrupt Set-enable Registers)
+*/
+
+#define NVIC_ISER0				((__vo uint32_t*)0xE000E100)
+#define NVIC_ISER1				((__vo uint32_t*)0xE000E104)
+#define NVIC_ISER2				((__vo uint32_t*)0xE000E108)
+#define NVIC_ISER3				((__vo uint32_t*)0xE000E10C)
+
+/*
+ * ARM Cortex M3 Processor NVIC ICERx Register Addresses  (Interrupt Clear-enable Registers)
+*/
+
+#define NVIC_ICER0				((__vo uint32_t*)0XE000E180)
+#define NVIC_ICER1				((__vo uint32_t*)0XE000E184)
+#define NVIC_ICER2				((__vo uint32_t*)0XE000E188)
+#define NVIC_ICER3				((__vo uint32_t*)0XE000E18C)
+
+
+
 /*
  * base address of Flash and SRAM memories
 */
@@ -259,6 +280,19 @@ typedef struct{
 									 (x == GPIOE) ? 4 :\
 									 (x == GPIOF) ? 5 :\
 									 (x == GPIOG) ? 6 :0)
+
+/*
+ * IRQ(Interrupt Request)
+ */
+
+#define IRQ_NO_EXTI0		6
+#define IRQ_NO_EXTI1		7
+#define IRQ_NO_EXTI2		8
+#define IRQ_NO_EXTI3		9
+#define IRQ_NO_EXTI4		10
+#define IRQ_NO_EXTI9_5		23
+#define IRQ_NO_EXTI15_10	40
+
 // some generic macros
 
 #define ENABLE 				1
