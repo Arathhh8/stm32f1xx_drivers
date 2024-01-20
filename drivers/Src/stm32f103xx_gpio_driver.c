@@ -283,7 +283,7 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber){
 /*
  * IRQ Configuration and ISR Handling
  */
-void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi){
+void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi){
 	if(EnorDi == ENABLE){
 		if(IRQNumber <= 31){
 			// program ISER0 register
@@ -310,8 +310,35 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi){
 		}
 	}
 }
-void GPIO_IRQHandling(uint8_t PinNumber){
 
+/**************************************************************************************************
+ * @fn 					- GPIO_IRQPriorityConfig
+ *
+ * @brief				-
+ *
+ * @param[in]			-
+ * @param[in]			-
+ * @param[in]			-
+ *
+ * @return				- none
+ *
+ * @Note				- none
+ */
+
+void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority){
+	// 1. First lets find out the IPR register
+	uint8_t iprx = IRQNumber / 4;
+	uint8_t iprx_section = IRQNumber % 4;
+
+	uint8_t shift_amount = (8 * iprx_section) + (8 - NO_PR_BITS_IMPLEMENTED);
+	*(NVIC_PR_BASE_ADDR + (iprx * 4)) |= (IRQNumber << shift_amount);
+}
+void GPIO_IRQHandling(uint8_t PinNumber){
+	// Clear the EXTI PR register corresponding to the pin number
+	if(EXTI->PR & (1 << PinNumber)){
+		// clear
+		EXTI->PR |= (1 << PinNumber);
+	}
 }
 
 

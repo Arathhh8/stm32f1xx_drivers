@@ -32,7 +32,13 @@
 #define NVIC_ICER2				((__vo uint32_t*)0XE000E188)
 #define NVIC_ICER3				((__vo uint32_t*)0XE000E18C)
 
+/*
+ * ARM Cortex M3 Processor NVIC IPRx Register Addresses  (Interrupt Priority Registers)
+*/
 
+#define NVIC_PR_BASE_ADDR				((__vo uint32_t*)0xE000E400)
+
+#define NO_PR_BITS_IMPLEMENTED			4
 
 /*
  * base address of Flash and SRAM memories
@@ -134,12 +140,12 @@ typedef struct{
  */
 
 typedef struct{
-	__vo uint32_t IMR;					// Clock control register					Address offset: 0x00
-	__vo uint32_t EMR;					// Clock configuration register				Address offset: 0x04
-	__vo uint32_t RTSR;					// Clock interrupt register					Address offset: 0x08
-	__vo uint32_t FTSR;				// APB2 peripheral reset register			Address offset: 0x0C
-	__vo uint32_t SWIER;				// APB1 peripheral reset register			Address offset: 0x10
-	__vo uint32_t PR;				// AHB peripheral clock enable register		Address offset: 0x14
+	__vo uint32_t IMR;					// 											Address offset: 0x00
+	__vo uint32_t EMR;					// 											Address offset: 0x04
+	__vo uint32_t RTSR;					// 				TODO						Address offset: 0x08
+	__vo uint32_t FTSR;					//											Address offset: 0x0C
+	__vo uint32_t SWIER;				// 											Address offset: 0x10
+	__vo uint32_t PR;					// 											Address offset: 0x14
 }EXTI_RegDef_t;
 
 
