@@ -8,4 +8,4 @@
 ../drivers/Src/stm32f103xx_gpio_driver.c:289:6:GPIO_ToggleOutputPin	16	static
 ../drivers/Src/stm32f103xx_gpio_driver.c:297:6:GPIO_IRQInterruptConfig	16	static
 ../drivers/Src/stm32f103xx_gpio_driver.c:339:6:GPIO_IRQPriorityConfig	24	static
-../drivers/Src/stm32f103xx_gpio_driver.c:348:6:GPIO_IRQHandling	16	static
+../drivers/Src/stm32f103xx_gpio_driver.c:347:6:GPIO_IRQHandling	16	static

@@ -116,12 +116,12 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 			// 1. Configure the FTSR (Falling trigger detection register)
 			if(pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber < 8){
 				// then the GPIO select is between Pin0 and Pin7 -> CRL
-				temp = (2 << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+				temp = (2 << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); // conf pupd
 				pGPIOHandle->pGPIOx->CRL &= ~(0x3 << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
 				pGPIOHandle->pGPIOx->CRL |= temp;
 			}else{
 				// then the GPIO select is between Pin8 and Pin16 -> CRH
-				temp = (2 << (2 + 4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8)));
+				temp = (2 << (2 + 4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8))); // conf pupd
 				pGPIOHandle->pGPIOx->CRH &= ~(0x3 << (2 + 4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8))); //clearing
 				pGPIOHandle->pGPIOx->CRH |= temp;
 			}

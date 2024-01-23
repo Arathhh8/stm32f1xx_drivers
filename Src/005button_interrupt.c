@@ -6,18 +6,23 @@
  */
 
 #include"stm32f103xx.h"
+#include"string.h"
 
 #define HIGH 1
 #define LOW  0
 #define BTN_PRESSED LOW
 
 void delay(void){
+
+	// this will introduce ~200ms delay when system clock is 16 MHz
 	for(uint32_t i = 0; i < 500000/2; i++);
 }
 
 int main(){
 
 	GPIO_Handle_t GpioLed, GpioBtn;
+	memset(&GpioLed,0,sizeof(GpioLed));				/*  set all structure to 0   */
+	memset(&GpioBtn,0,sizeof(GpioBtn));
 
 	GpioLed.pGPIOx = GPIOC;
 	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13;
@@ -57,6 +62,8 @@ int main(){
 
 
 void EXTI9_5_IRQHandler(void){
+
+	delay(); // 200ms
 
 	GPIO_IRQHandling(GPIO_PIN_NO_9); // clear the pending event from EXTI line
 

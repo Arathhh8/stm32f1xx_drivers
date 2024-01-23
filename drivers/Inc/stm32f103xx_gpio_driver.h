@@ -72,7 +72,7 @@ typedef struct{
 // in input mode
 #define GPIO_MODE_ANALOG 			0
 #define GPIO_MODE_INPUT_FLOATING 	1 // No Pull-up no Pull-down
-#define GPIO_MODE_IN_PUPD 			0x2
+#define GPIO_MODE_IN_PUPD 			2
 // in output mode
 #define GPIO_MODE_OUT_PP 			0
 #define GPIO_MODE_OUT_OD 			1
