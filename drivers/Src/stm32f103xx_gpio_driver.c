@@ -114,6 +114,17 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 		// this part will code later . (interrupt mode)
 		if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_IT_FT){
 			// 1. Configure the FTSR (Falling trigger detection register)
+			if(pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber < 8){
+				// then the GPIO select is between Pin0 and Pin7 -> CRL
+				temp = (2 << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+				pGPIOHandle->pGPIOx->CRL &= ~(0x3 << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
+				pGPIOHandle->pGPIOx->CRL |= temp;
+			}else{
+				// then the GPIO select is between Pin8 and Pin16 -> CRH
+				temp = (2 << (2 + 4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8)));
+				pGPIOHandle->pGPIOx->CRH &= ~(0x3 << (2 + 4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8))); //clearing
+				pGPIOHandle->pGPIOx->CRH |= temp;
+			}
 			EXTI->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 			// clear the corresponding RTSR bit
 			EXTI->RTSR &= ~(1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
@@ -326,12 +337,12 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi){
  */
 
 void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority){
-	// 1. First lets find out the IPR register
+	// 1. First lets find out the IPR register  (iprx = interrupt priority register)
 	uint8_t iprx = IRQNumber / 4;
 	uint8_t iprx_section = IRQNumber % 4;
 
 	uint8_t shift_amount = (8 * iprx_section) + (8 - NO_PR_BITS_IMPLEMENTED);
-	*(NVIC_PR_BASE_ADDR + (iprx * 4)) |= (IRQNumber << shift_amount);
+	*(NVIC_PR_BASE_ADDR + (iprx)) |= (IRQPriority << shift_amount);
 }
 void GPIO_IRQHandling(uint8_t PinNumber){
 	// Clear the EXTI PR register corresponding to the pin number
