@@ -167,9 +167,9 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 
 	// 5. Configure the alt functionality
 	temp = 0;
-	if(temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode >= GPIO_MODE_AF_PP )){
+	//if(temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode >= GPIO_MODE_AF_PP )){
 		// configure the alternate function registers
-	}
+	//}
 }
 void GPIO_DeInit(GPIO_Handle_t *pGPIOx){
 	if(pGPIOx == GPIOA){
