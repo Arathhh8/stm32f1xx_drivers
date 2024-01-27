@@ -108,8 +108,8 @@
 #define USART3_BASEADDR				(APB1PERIPH_BASE + 0x4800)
 #define USART2_BASEADDR				(APB1PERIPH_BASE + 0x4400)
 #define RESERVED3_APB1_BASEADDR		(APB1PERIPH_BASE + 0x4000)
-#define SPI3_I2S_BASEADDR			(APB1PERIPH_BASE + 0x3C00)
-#define SPI2_I2S_BASEADDR			(APB1PERIPH_BASE + 0x3800)
+#define SPI3_BASEADDR				(APB1PERIPH_BASE + 0x3C00)
+#define SPI2_BASEADDR				(APB1PERIPH_BASE + 0x3800)
 #define RESERVED2_APB1_BASEADDR		(APB1PERIPH_BASE + 0x3400)
 #define IWDG_BASEADDR				(APB1PERIPH_BASE + 0x3000)
 #define WWDG_BASEADDR				(APB1PERIPH_BASE + 0x2C00)
@@ -345,13 +345,13 @@ typedef struct{
 /*
  * Macros to reset GPIOx peripherals
  */
-#define GPIOA_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 2));	(RCC->APB2RSTR |= (1 << 2));}while(0)
-#define GPIOB_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 3));	(RCC->APB2RSTR |= (1 << 2));}while(0)
-#define GPIOC_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 4));	(RCC->APB2RSTR |= (1 << 2));}while(0)
-#define GPIOD_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 5));	(RCC->APB2RSTR |= (1 << 2));}while(0)
-#define GPIOE_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 6));	(RCC->APB2RSTR |= (1 << 2));}while(0)
-#define GPIOF_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 7));	(RCC->APB2RSTR |= (1 << 2));}while(0)
-#define GPIOG_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 8));	(RCC->APB2RSTR |= (1 << 2));}while(0)
+#define GPIOA_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 2));	(RCC->APB2RSTR &= ~(1 << 2));}while(0)
+#define GPIOB_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 3));	(RCC->APB2RSTR &= ~(1 << 2));}while(0)
+#define GPIOC_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 4));	(RCC->APB2RSTR &= ~(1 << 2));}while(0)
+#define GPIOD_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 5));	(RCC->APB2RSTR &= ~(1 << 2));}while(0)
+#define GPIOE_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 6));	(RCC->APB2RSTR &= ~(1 << 2));}while(0)
+#define GPIOF_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 7));	(RCC->APB2RSTR &= ~(1 << 2));}while(0)
+#define GPIOG_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 8));	(RCC->APB2RSTR &= ~(1 << 2));}while(0)
 
 #define GPIO_BASEADDR_TO_CODE(x)	((x == GPIOA) ? 0 :\
 									 (x == GPIOB) ? 1 :\
@@ -360,6 +360,18 @@ typedef struct{
 									 (x == GPIOE) ? 4 :\
 									 (x == GPIOF) ? 5 :\
 									 (x == GPIOG) ? 6 :0)
+
+/*
+ * Macros to reset SPIx peripherals
+ */
+#define SPI1_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 12)); (RCC->APB2RSTR &= ~(1 << 12));}while(0)
+#define SPI2_REG_RESET()	do{(RCC->APB1RSTR |= (1 << 14)); (RCC->APB1RSTR &= ~(1 << 14));}while(0)
+#define SPI3_REG_RESET()	do{(RCC->APB1RSTR |= (1 << 15)); (RCC->APB1RSTR &= ~(1 << 15));}while(0)
+
+
+#define SPI_BASEADDR_TO_CODE(x)	((x == SPI1) ? 0 :\
+									 (x == SPI2) ? 1 :\
+									 (x == SPI3) ? 2 :0)
 
 /*********************************************************************************************************/
 /********************************** IRQ (INTERRUPT REQUEST) STM32F103xx **********************************/
@@ -409,13 +421,64 @@ typedef struct{
 #define GPIO_PIN_RESET		RESET
 #define HIGH 1
 #define LOW  0
+#define FLAG_RESET			RESET
+#define FLAG_SET			SET
 
+/*********************************************************************************************************/
+/*							Bit position definitions of SPI peripheral 									 */
+/*********************************************************************************************************/
 
+/*
+ * Macros for all bit position in SPI_CR1
+ */
 
+#define SPI_CR1_CPHA		0
+#define SPI_CR1_CPOL		1
+#define SPI_CR1_MSTR		2
+#define SPI_CR1_BR			3
+#define SPI_CR1_SPE			6
+#define SPI_CR1_LSBFIRST	7
+#define SPI_CR1_SSI			8
+#define SPI_CR1_SSM			9
+#define SPI_CR1_RXONLY		10
+#define SPI_CR1_DFF 		11
+#define SPI_CR1_CRCNEXT		12
+#define SPI_CR1_CRCEN   	13
+#define SPI_CR1_BIDIOE		14
+#define SPI_CR1_BIDIMODE	15
+
+/*
+ * Macros for all bit position in SPI_CR2
+ */
+
+#define SPI_CR2_RXDMAEN		0
+#define SPI_CR2_TXDMAEN		1
+#define SPI_CR2_SSOE		2
+#define SPI_CR2_RES			3
+#define SPI_CR2_RES			4
+#define SPI_CR2_ERRIE		5
+#define SPI_CR2_RXNEIE		6
+#define SPI_CR2_TXEIE		7
+#define SPI_CR2_RESERVED	8
+
+/*
+ * Macros for all bit position in SPI_SR
+ */
+
+#define SPI_SR_RXNE			0
+#define SPI_SR_TXE			1
+#define SPI_SR_CHSIDE		2
+#define SPI_SR_UDR		    3
+#define SPI_SR_CRCERR		4
+#define SPI_SR_MODF			5
+#define SPI_SR_OVR			6
+#define SPI_SR_BSY			7
+#define SPI_SR_RESERVED		8
 
 
 
 #include"stm32f103xx_gpio_driver.h"
+#include"stm32f1xx_spi_driver.h"
 
 
 
