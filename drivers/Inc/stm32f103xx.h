@@ -411,7 +411,7 @@ typedef struct{
 #define NVIC_IRQ_PRI15		15
 
 
-// some generic macros
+// Some generic macros
 
 #define ENABLE 				1
 #define DISABLE				0
@@ -455,7 +455,7 @@ typedef struct{
 #define SPI_CR2_TXDMAEN		1
 #define SPI_CR2_SSOE		2
 #define SPI_CR2_RES			3
-#define SPI_CR2_RES			4
+#define SPI_CR2_RES2		4
 #define SPI_CR2_ERRIE		5
 #define SPI_CR2_RXNEIE		6
 #define SPI_CR2_TXEIE		7

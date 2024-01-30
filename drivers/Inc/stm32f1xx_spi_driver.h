@@ -111,7 +111,7 @@ void SPI_PeriClockControl(SPI_RegDef_t *pSPIx, uint8_t  EnorDi);
  * Init and De-Init
  */
 void SPI_Init(SPI_Handle_t *pSPIHandle);
-void SPI_DeInit(SPI_Config_t *pSPIx);
+void SPI_DeInit(SPI_RegDef_t *pSPIx);
 
 /*
  * Data send and data receive
@@ -126,8 +126,11 @@ void SPI_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);
 void SPI_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority);
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
+/*
+ * Other peripheral control APIs
+ */
 
-
-
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
+void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 
 #endif /* INC_STM32F1XX_SPI_DRIVER_H_ */

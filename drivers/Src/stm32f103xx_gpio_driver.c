@@ -82,6 +82,10 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t  EnorDi){
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 	uint32_t temp = 0; // temporal variable
 
+	// Enable the peripheral clock
+
+	GPIO_PeriClockControl(pGPIOHandle->pGPIOx, ENABLE);
+
 	// 1. Configure the speed
 	//temp = 2;
 	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber < 8){
@@ -171,7 +175,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 		// configure the alternate function registers
 	//}
 }
-void GPIO_DeInit(GPIO_Handle_t *pGPIOx){
+void GPIO_DeInit(GPIO_RegDef_t *pGPIOx){
 	if(pGPIOx == GPIOA){
 		GPIOA_REG_RESET();
 	}else if(pGPIOx == GPIOB){
