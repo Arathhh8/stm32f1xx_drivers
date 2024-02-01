@@ -30,7 +30,6 @@ int main(){
 	GpioBtn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_0;
 	GpioBtn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IN_PUPD;
 	GpioBtn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_MODE_IN_RESET_STATE;
-	GpioLed.GPIO_PinConfig.GPIO_PinOPType = NO_CONFIG;
 	GpioBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_MODE_PU;
 
 	GPIO_PeriClockControl(GPIOA, ENABLE);

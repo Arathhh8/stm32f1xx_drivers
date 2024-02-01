@@ -91,7 +91,14 @@ typedef struct {
 /*
  * @SPI related status flags definitions
  */
+#define SPI_RXNE_FLAG						(1 << SPI_SR_RXNE)
 #define SPI_TXE_FLAG						(1 << SPI_SR_TXE)
+#define SPI_CHSIDE_FLAG						(1 << SPI_SR_CHSIDE)
+#define SPI_UDR_FLAG						(1 << SPI_SR_UDR)
+#define SPI_CRCERR_FLAG						(1 << SPI_SR_CRCERR)
+#define SPI_MODF_FLAG						(1 << SPI_SR_MODF)
+#define SPI_OVR_FLAG						(1 << SPI_SR_OVR)
+#define SPI_BSY_FLAG						(1 << SPI_SR_BSY)
 
 
 
@@ -132,5 +139,7 @@ void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
+void SPI_SSOEConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName);
 
 #endif /* INC_STM32F1XX_SPI_DRIVER_H_ */

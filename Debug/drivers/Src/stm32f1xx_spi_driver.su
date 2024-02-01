@@ -8,3 +8,4 @@
 ../drivers/Src/stm32f1xx_spi_driver.c:209:6:SPI_IRQHandling	16	static
 ../drivers/Src/stm32f1xx_spi_driver.c:227:6:SPI_PeripheralControl	16	static
 ../drivers/Src/stm32f1xx_spi_driver.c:237:6:SPI_SSIConfig	16	static
+../drivers/Src/stm32f1xx_spi_driver.c:259:6:SPI_SSOEConfig	16	static

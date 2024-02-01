@@ -75,6 +75,10 @@ int main(void){
 	// Function to send data
 	SPI_SendData(SPI2, (uint8_t *)user_data, strlen(user_data));
 
+	// Lets confirm SPI is not busy
+	while (SPI_GetFlagStatus(SPI2, SPI_BSY_FLAG));
+
+	// Disable the SPI2 peripheral
 	SPI_PeripheralControl(SPI2, DISABLE);
 
 	while(1);
