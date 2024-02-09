@@ -61,7 +61,7 @@ main-build: stm32f1xx_drivers.elf secondary-outputs
 
 # Tool invocations
 stm32f1xx_drivers.elf stm32f1xx_drivers.map: $(OBJS) $(USER_OBJS) C:\Users\arath\Desktop\Embedded\ Software\Course\ Mastering\ Microcontroller\ and\ Embedded\ Driver\ Development\MCU1-Course\MCU1\stm32f1xx_drivers\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "stm32f1xx_drivers.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\arath\Desktop\Embedded Software\Course Mastering Microcontroller and Embedded Driver Development\MCU1-Course\MCU1\stm32f1xx_drivers\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f1xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "stm32f1xx_drivers.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\arath\Desktop\Embedded Software\Course Mastering Microcontroller and Embedded Driver Development\MCU1-Course\MCU1\stm32f1xx_drivers\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f1xx_drivers.map" -Wl,--gc-sections -static -specs=rdimon.specs -lc -lrdimon --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

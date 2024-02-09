@@ -35,8 +35,22 @@ typedef struct {
 
 	SPI_RegDef_t *pSPIx;			/*!< This holds the base address of the SPIx(X:0,1,2) peripheral >*/
 	SPI_Config_t SPIConfig;			/*!< This holds SPI pin configuration settings >*/
+	uint8_t		 *pTxBuffer;		/* To store the app. Tx buffer address*/
+	uint8_t		 *pRxBuffer;		/* To store the app. Rx buffer address*/
+	uint32_t	 TxLen;				/* To store Tx Len*/
+	uint32_t	 RxLen;				/* To store Rx Len*/
+	uint8_t		 TxState;			/* To store Tx State*/
+	uint8_t		 RxState;			/* To store Rx State*/
 
 }SPI_Handle_t;
+
+
+/*
+ * SPI application states
+ */
+#define SPI_READY							0
+#define SPI_BUSY_IN_RX						1
+#define SPI_BUSY_IN_TX						2
 
 
 /*
@@ -101,8 +115,6 @@ typedef struct {
 #define SPI_BSY_FLAG						(1 << SPI_SR_BSY)
 
 
-
-
 /**************************************************************************************************************
  *								APIs supported by this driver
  *				For more information about the APIs check the function definitions
@@ -124,7 +136,10 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx);
  * Data send and data receive
  */
 void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len);
-void SPI_ReceiveData(SPI_Handle_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len);
+void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len);
+
+uint8_t SPI_SendDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Len);
+uint8_t SPI_ReceiveDataIT (SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t Len);
 
 /*
  * IRQ Configuration and ISR Handling
