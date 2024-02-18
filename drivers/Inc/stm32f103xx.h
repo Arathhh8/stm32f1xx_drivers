@@ -8,9 +8,11 @@
 #ifndef INC_STM32F103XX_H_
 #define INC_STM32F103XX_H_
 
+#include<stddef.h>
 #include<stdint.h>
 
 #define __vo volatile
+#define __weak __attribute__((weak))
 #define NO_CONFIG 7
 
 

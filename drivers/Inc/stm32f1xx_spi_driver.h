@@ -52,6 +52,15 @@ typedef struct {
 #define SPI_BUSY_IN_RX						1
 #define SPI_BUSY_IN_TX						2
 
+/*
+ * Possible SPI Applications events
+ */
+#define SPI_EVENT_TX_CMPLT					1
+#define SPI_EVENT_RX_CMPLT					2
+#define SPI_EVENT_OVR_ERR					3
+#define SPI_EVENT_CRC_ERR					4
+
+
 
 /*
  * @SPI_DeviceMode
@@ -112,7 +121,7 @@ typedef struct {
 #define SPI_CRCERR_FLAG						(1 << SPI_SR_CRCERR)
 #define SPI_MODF_FLAG						(1 << SPI_SR_MODF)
 #define SPI_OVR_FLAG						(1 << SPI_SR_OVR)
-#define SPI_BSY_FLAG						(1 << SPI_SR_BSY)
+#define SPI_BUSY_FLAG						(1 << SPI_SR_BSY)
 
 
 /**************************************************************************************************************
@@ -156,5 +165,14 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 void SPI_SSOEConfig(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName);
+void SPI_ClearOVRFlag(SPI_RegDef_t *pSPIx);
+void SPI_CloseTransmission(SPI_Handle_t *pHandle);
+void SPI_CloseReception(SPI_Handle_t *pHandle);
+
+/*
+ * Application CallBack
+ */
+
+void SPI_ApplicationEventCallBack(SPI_Handle_t *pHandle, uint8_t AppEv);
 
 #endif /* INC_STM32F1XX_SPI_DRIVER_H_ */
