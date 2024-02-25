@@ -1,4 +1,4 @@
-/*
+ /*
  * 009spi_message_rcv_it.c
  *
  *  Created on: Feb 17, 2024
@@ -154,7 +154,7 @@ int main(void)
 		{
 			/* fetch the data from the SPI peripheral byte by byte in interrupt mode */
 			while ( SPI_SendDataIT(&SPI2handle, &dummy, 1) == SPI_BUSY_IN_TX);
-			while ( SPI_ReceiveDataIT(&SPI2handle, &ReadByte, 1) == SPI_BUSY_IN_RX );
+			//while ( SPI_ReceiveDataIT(&SPI2handle, &ReadByte, 1) == SPI_BUSY_IN_RX ); // this line is required but in the meantime it will be commented to avoid warnings
 		}
 
 
@@ -169,8 +169,6 @@ int main(void)
 		dataAvailable = 0;
 
 		GPIO_IRQInterruptConfig(IRQ_NO_EXTI9_5,ENABLE);
-
-
 	}
 
 	return 0;

@@ -226,10 +226,28 @@ typedef struct{
 	__vo uint32_t CRCPR;				// CRC polynomial register					Address offset: 0x10
 	__vo uint32_t RXCRCR;				// Rx CRC register 							Address offset: 0x14
 	__vo uint32_t TXCRCR;				// Tx CRC register							Address offset: 0x18
-	__vo uint32_t I2SCFGR;				// I2C configuration register 				Address offset: 0x1C
-	__vo uint32_t I2SPR;				// I2C prescaler register					Address offset: 0x20
+	__vo uint32_t I2SCFGR;				// I2S configuration register 				Address offset: 0x1C
+	__vo uint32_t I2SPR;				// I2S prescaler register					Address offset: 0x20
 
 }SPI_RegDef_t;
+
+/*
+ *	Peripheral register definition structure for I2C
+ */
+
+typedef struct{
+
+	__vo uint32_t CR1;					// Control register	1						Address offset: 0x00
+	__vo uint32_t CR2;					// Control register 2						Address offset: 0x04
+	__vo uint32_t OAR1;					// Own address register	1					Address offset: 0x08
+	__vo uint32_t OAR2;					// Own address register	1					Address offset: 0x0C
+	__vo uint32_t DR;					// Data register							Address offset: 0x10
+	__vo uint32_t SR1;					// Status register 1						Address offset: 0x14
+	__vo uint32_t SR2;					// Status register 2						Address offset: 0x18
+	__vo uint32_t CCR;					// Clock control register	 				Address offset: 0x1C
+	__vo uint32_t TRISE;				// TRISE register							Address offset: 0x20
+
+}I2C_RegDef_t;
 
 /*********************************************************************************************************/
 /**************** Peripheral definitions (Peripherals base address typecasted to xxx_RegGef_t)************/
@@ -250,6 +268,9 @@ typedef struct{
 #define SPI1			((SPI_RegDef_t*)SPI1_BASEADDR)
 #define SPI2			((SPI_RegDef_t*)SPI2_BASEADDR)
 #define SPI3			((SPI_RegDef_t*)SPI3_BASEADDR)
+
+#define I2C1			((I2C_RegDef_t*)I2C1_BASEADDR)
+#define I2C2			((I2C_RegDef_t*)I2C2_BASEADDR)
 
 
 /*********************************************************************************************************/
@@ -481,9 +502,121 @@ typedef struct{
 #define SPI_SR_RESERVED		8
 
 
+/*********************************************************************************************************/
+/*							Bit position definitions of I2C peripheral 									 */
+/*********************************************************************************************************/
+
+/*
+ * Macros for all bit position in I2C_CR1
+ */
+
+#define I2C_CR1_PE			0
+#define I2C_CR1_SMBUS		1
+#define I2C_CR1_RES1		2
+#define I2C_CR1_SMBTYPE		3
+#define I2C_CR1_ENARP		4
+#define I2C_CR1_ENPEC		5
+#define I2C_CR1_ENGC		6
+#define I2C_CR1_NOSTRETCH	7
+#define I2C_CR1_START		8
+#define I2C_CR1_STOP		9
+#define I2C_CR1_ACK			10
+#define I2C_CR1_POS			11
+#define I2C_CR1_PEC			12
+#define I2C_CR1_ALERT		13
+#define I2C_CR1_RES2		14
+#define I2C_CR1_SWRST		15
+
+/*
+ * Macros for all bit position in I2C_CR2
+ */
+
+#define I2C_CR2_FREQ		0
+#define I2C_CR2_RES1		6
+#define I2C_CR2_ITERREN		8
+#define I2C_CR2_ITEVTEN		9
+#define I2C_CR2_ITBUFEN		10
+#define I2C_CR2_DMAEN		11
+#define I2C_CR2_LAST		12
+#define I2C_CR2_RES2		13
+
+
+/*
+ * Macros for all bit position in I2C_OAR1
+ */
+
+#define I2C_OAR1_ADD0		0
+#define I2C_OAR1_ADD71		1
+#define I2C_OAR1_ADD98		8
+#define I2C_OAR1_RES		10
+#define I2C_OAR1_ADDMODE	15
+
+/*
+ * Macros for all bit position in I2C_OAR2
+ */
+
+#define I2C_OAR2_ENDUAL		0
+#define I2C_OAR2_ADD2_71	1
+#define I2C_OAR2_RES1		8
+
+/*
+ * Macros for all bit position in I2C_DR
+ */
+
+#define I2C_DR_DR70			0
+#define I2C_DR_RES			8
+
+/*
+ * Macros for all bit position in I2C_SR1
+ */
+
+#define I2C_SR1_SB			0
+#define I2C_SR1_ADDR		1
+#define I2C_SR1_BTF			2
+#define I2C_SR1_ADD10		3
+#define I2C_SR1_STOPF		4
+#define I2C_SR1_RES1		5
+#define I2C_SR1_RxNE		6
+#define I2C_SR1_TxE			7
+#define I2C_SR1_BERR		8
+#define I2C_SR1_ARLO		9
+#define I2C_SR1_AF			10
+#define I2C_SR1_OVR			11
+#define I2C_SR1_PEC_ERR		12
+#define I2C_SR1_RES2		13
+#define I2C_SR1_TIME_OUT	14
+#define I2C_SR1_SMB_ALERT	15
+
+/*
+ * Macros for all bit position in I2C_OAR2
+ */
+
+#define I2C_OAR2_ENDUAL		0
+#define I2C_OAR2_ADD2_71	1
+#define I2C_OAR2_RES1		8
+
+/*
+ * Macros for all bit position in I2C_TRISE
+ */
+
+#define I2C_TRISE_50		0
+#define I2C_TRISE_RES1		6
+
+/*
+ * Macros for all bit position in I2C_CCR
+ */
+
+#define I2C_CCR_CCR			0
+#define I2C_CCR_RES1		1
+#define I2C_CCR_DUTY		2
+#define I2C_CCR_FS			3
+
+
+
 
 #include"stm32f103xx_gpio_driver.h"
 #include"stm32f1xx_spi_driver.h"
+#include"stm32f103xx_i2c_driver.h"
 
 
 
