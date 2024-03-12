@@ -94,7 +94,7 @@ void GPIO_ButtonInit(void){
 	GpioBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_MODE_PU;
 
 	GPIO_Init(&GpioBtn);
-	}
+}
 
 void GPIO_LedInit(void){
 

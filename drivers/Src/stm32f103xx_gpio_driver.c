@@ -169,11 +169,22 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 		pGPIOHandle->pGPIOx->ODR |= temp;
 	}
 
-	// 5. Configure the alt functionality
+//	// 5. Configure the alt functionality
 	temp = 0;
-	//if(temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode >= GPIO_MODE_AF_PP )){
+	if((pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode == GPIO_MODE_AF_OD )){
 		// configure the alternate function registers
-	//}
+		if(pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber < 8){
+			// then the GPIO select is between Pin0 and Pin7 -> CRL
+			temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+			pGPIOHandle->pGPIOx->CRL &= ~(0x3 << (2 + 4 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
+			pGPIOHandle->pGPIOx->CRL |= temp;
+		}else{
+			// then the GPIO select is between Pin8 and Pin16 -> CRH
+			temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << (2 + 4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8)));
+			pGPIOHandle->pGPIOx->CRH &= ~(0x3 << (2 + 4 * (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber - 8))); //clearing
+			pGPIOHandle->pGPIOx->CRH |= temp;
+		}
+	}
 }
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx){
 	if(pGPIOx == GPIOA){
