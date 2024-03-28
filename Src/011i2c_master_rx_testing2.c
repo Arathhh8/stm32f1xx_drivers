@@ -1,7 +1,7 @@
 /*
- * 010i2c_master_tx_testing.c
+ * 011i2c_master_rx_testing2.c
  *
- *  Created on: Mar 9, 2024
+ *  Created on: Mar 23, 2024
  *      Author: arath
  */
 
@@ -13,13 +13,11 @@
 extern void initialise_monitor_handles();
 
 #define MY_ADDR 0x61
-#define SLAVE_ADDR 0xA6
-
-AFIO_RegDef_t *I2CAFIO;
+#define SLAVE_ADDR 0x68
 
 
-// some data
-uint8_t some_data[] = "We are testing I2C master Tx\n";
+// rcv bffr
+uint8_t rcv_bffr[32];
 
 void delay(void){
 	for(uint32_t i = 0 ; i < 500000/2 ; i ++);
@@ -34,28 +32,20 @@ I2C_Handle_t I2C1Handle;
 
 void I2C1_GPIOInits(void){
 
-	// Remap pines
-	uint32_t tempreg = 0;  // temporal register
-	tempreg |= (1 << 1);
-
-	AFIO_PCLK_EN();
-
-	AFIO->MAPR = tempreg;  // Remap I2C1_SCL and I2C_SDA (PB6,PB7) a I2C1_SCL and I2C_SDA (PB8,PB9)
-
 	GPIO_Handle_t I2CPins;
 
 	I2CPins.pGPIOx = GPIOB;
 	I2CPins.GPIO_PinConfig.GPIO_PinAltFunMode = GPIO_MODE_AF_OD;
 	I2CPins.GPIO_PinConfig.GPIO_PinOPType = GPIO_MODE_OUT_OD;
-	I2CPins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_MODE_INPUT_FLOATING;
+	I2CPins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_MODE_PU;
 	I2CPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_OUT_MHZ_10;
 
 	// SCL
-	I2CPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_8;
+	I2CPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_6;
 	GPIO_Init(&I2CPins);
 
 	// SDA
-	I2CPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_9;
+	I2CPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_7;
 	GPIO_Init(&I2CPins);
 
 }
@@ -86,8 +76,11 @@ void GPIO_ButtonInit(void){
 
 
 int main(void){
-	//initialise_monitor_handles();
-	//printf("Hello STM32\n");
+	/* initialise_monitor_handles();
+	printf("Hello STM32\n"); */
+
+	uint8_t commandCode;
+	uint8_t len;
 
 	GPIO_ButtonInit();
 
@@ -96,7 +89,6 @@ int main(void){
 
 	// I2C Peripheral configuration
 	I2C1_Inits();
-
 
 	I2C_PeripheralControl(I2C1, ENABLE);
 
@@ -110,16 +102,19 @@ int main(void){
 			// To avoid button de-bouncing related issues 200ms of delay
 			delay();
 
-			// Send some data to the slave
-			I2C_MasterSendData(&I2C1Handle,some_data, strlen((char*)some_data), SLAVE_ADDR);
+			commandCode = 0x51;
+
+			I2C_MasterSendData(&I2C1Handle, &commandCode , 1, SLAVE_ADDR);
+
+			I2C_MasterReceiveData(&I2C1Handle, &len, 1, SLAVE_ADDR);
+
+			commandCode = 0x52;
+			I2C_MasterSendData(&I2C1Handle, &commandCode , 1, SLAVE_ADDR);
+
+			I2C_MasterReceiveData(&I2C1Handle, rcv_bffr, len, SLAVE_ADDR);
+
 	}
 }
-
-
-
-
-
-
 
 
 
