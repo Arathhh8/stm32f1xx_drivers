@@ -292,6 +292,8 @@ typedef struct{
 #define USART1			((USART_RegDef_t*)USART1_BASEADDR)
 #define USART2			((USART_RegDef_t*)USART2_BASEADDR)
 #define USART3			((USART_RegDef_t*)USART3_BASEADDR)
+#define UART4			((USART_RegDef_t*)UART4_BASEADDR)
+#define UART5			((USART_RegDef_t*)UART5_BASEADDR)
 
 
 /*********************************************************************************************************/
@@ -416,6 +418,21 @@ typedef struct{
 #define SPI_BASEADDR_TO_CODE(x)	((x == SPI1) ? 0 :\
 									 (x == SPI2) ? 1 :\
 									 (x == SPI3) ? 2 :0)
+
+/*
+ * Macros to reset USARTx peripherals
+ */
+#define USART1_REG_RESET()	do{(RCC->APB2RSTR |= (1 << 14)); (RCC->APB2RSTR &= ~(1 << 14));}while(0)
+#define USART2_REG_RESET()	do{(RCC->APB1RSTR |= (1 << 17)); (RCC->APB1RSTR &= ~(1 << 17));}while(0)
+#define USART3_REG_RESET()	do{(RCC->APB1RSTR |= (1 << 18)); (RCC->APB1RSTR &= ~(1 << 18));}while(0)
+#define UART4_REG_RESET()	do{(RCC->APB1RSTR |= (1 << 19)); (RCC->APB1RSTR &= ~(1 << 19));}while(0)
+#define UART5_REG_RESET()	do{(RCC->APB1RSTR |= (1 << 20)); (RCC->APB1RSTR &= ~(1 << 20));}while(0)
+
+#define USART_BASEADDR_TO_CODE(x)	((x == USART1) ? 0 :\
+									 (x == USART2) ? 1 :\
+									 (x == USART3) ? 2 :\
+									 (x == UART4)  ? 3 :\
+									 (x == UART5)  ? 4 :0)
 
 /*********************************************************************************************************/
 /********************************** IRQ (INTERRUPT REQUEST) STM32F103xx **********************************/
@@ -643,16 +660,16 @@ typedef struct{
  * Macros for all bit position in USART_SR
  */
 
-#define USART_SR_PE			0
-#define USART_SR_FE			1
-#define USART_SR_NE			2
-#define USART_SR_ORE		3
-#define USART_SR_IDLE		4
-#define USART_SR_RXNE		5
-#define USART_SR_TC			6
-#define USART_SR_TXE		7
-#define USART_SR_LBD		8
-#define USART_SR_CTS		9
+#define USART_SR_FLAG_PE		0
+#define USART_SR_FLAG_FE		1
+#define USART_SR_FLAG_NE		2
+#define USART_SR_FLAG_ORE		3
+#define USART_SR_FLAG_IDLE		4
+#define USART_SR_FLAG_RXNE		5
+#define USART_SR_FLAG_TC		6
+#define USART_SR_FLAG_TXE		7
+#define USART_SR_FLAG_LBD		8
+#define USART_SR_FLAG_CTS		9
 
 /*
  * Macros for all bit position in USART_DR
