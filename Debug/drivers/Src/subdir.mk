@@ -8,6 +8,7 @@ C_SRCS += \
 ../drivers/Src/stm32f103xx_afio_driver.c \
 ../drivers/Src/stm32f103xx_gpio_driver.c \
 ../drivers/Src/stm32f103xx_i2c_driver.c \
+../drivers/Src/stm32f103xx_rcc_driver.c \
 ../drivers/Src/stm32f103xx_usart_driver.c \
 ../drivers/Src/stm32f1xx_spi_driver.c 
 
@@ -15,6 +16,7 @@ OBJS += \
 ./drivers/Src/stm32f103xx_afio_driver.o \
 ./drivers/Src/stm32f103xx_gpio_driver.o \
 ./drivers/Src/stm32f103xx_i2c_driver.o \
+./drivers/Src/stm32f103xx_rcc_driver.o \
 ./drivers/Src/stm32f103xx_usart_driver.o \
 ./drivers/Src/stm32f1xx_spi_driver.o 
 
@@ -22,6 +24,7 @@ C_DEPS += \
 ./drivers/Src/stm32f103xx_afio_driver.d \
 ./drivers/Src/stm32f103xx_gpio_driver.d \
 ./drivers/Src/stm32f103xx_i2c_driver.d \
+./drivers/Src/stm32f103xx_rcc_driver.d \
 ./drivers/Src/stm32f103xx_usart_driver.d \
 ./drivers/Src/stm32f1xx_spi_driver.d 
 
@@ -33,7 +36,7 @@ drivers/Src/%.o drivers/Src/%.su: ../drivers/Src/%.c drivers/Src/subdir.mk
 clean: clean-drivers-2f-Src
 
 clean-drivers-2f-Src:
-	-$(RM) ./drivers/Src/stm32f103xx_afio_driver.d ./drivers/Src/stm32f103xx_afio_driver.o ./drivers/Src/stm32f103xx_afio_driver.su ./drivers/Src/stm32f103xx_gpio_driver.d ./drivers/Src/stm32f103xx_gpio_driver.o ./drivers/Src/stm32f103xx_gpio_driver.su ./drivers/Src/stm32f103xx_i2c_driver.d ./drivers/Src/stm32f103xx_i2c_driver.o ./drivers/Src/stm32f103xx_i2c_driver.su ./drivers/Src/stm32f103xx_usart_driver.d ./drivers/Src/stm32f103xx_usart_driver.o ./drivers/Src/stm32f103xx_usart_driver.su ./drivers/Src/stm32f1xx_spi_driver.d ./drivers/Src/stm32f1xx_spi_driver.o ./drivers/Src/stm32f1xx_spi_driver.su
+	-$(RM) ./drivers/Src/stm32f103xx_afio_driver.d ./drivers/Src/stm32f103xx_afio_driver.o ./drivers/Src/stm32f103xx_afio_driver.su ./drivers/Src/stm32f103xx_gpio_driver.d ./drivers/Src/stm32f103xx_gpio_driver.o ./drivers/Src/stm32f103xx_gpio_driver.su ./drivers/Src/stm32f103xx_i2c_driver.d ./drivers/Src/stm32f103xx_i2c_driver.o ./drivers/Src/stm32f103xx_i2c_driver.su ./drivers/Src/stm32f103xx_rcc_driver.d ./drivers/Src/stm32f103xx_rcc_driver.o ./drivers/Src/stm32f103xx_rcc_driver.su ./drivers/Src/stm32f103xx_usart_driver.d ./drivers/Src/stm32f103xx_usart_driver.o ./drivers/Src/stm32f103xx_usart_driver.su ./drivers/Src/stm32f1xx_spi_driver.d ./drivers/Src/stm32f1xx_spi_driver.o ./drivers/Src/stm32f1xx_spi_driver.su
 
 .PHONY: clean-drivers-2f-Src
 

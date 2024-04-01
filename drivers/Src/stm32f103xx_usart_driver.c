@@ -4,7 +4,7 @@
  *  Created on: Mar 28, 2024
  *      Author: arath
  */
-#include"stm32f103_usart_driver.h"
+#include <stm32f103xx_usart_driver.h>
 
 /**************************************************************************************************
  * @fn 					- USART_PeriClockControl
@@ -63,8 +63,7 @@ void USART_PeriClockControl(USART_RegDef_t *pUSARTx, uint8_t EnorDi){
  * @Note              - Resolve all the TODOs
 
  */
-void USART_Init(USART_Handle_t *pUSARTHandle)
-{
+void USART_Init(USART_Handle_t *pUSARTHandle){
 
 	// Temporary variable
 	uint32_t tempreg=0;
@@ -156,6 +155,7 @@ void USART_Init(USART_Handle_t *pUSARTHandle)
 	//Implement the code to configure the baud rate
 	//We will cover this in the lecture. No action required here
 
+	USART_SetBaudRate(pUSARTHandle->pUSARTx, pUSARTHandle->USART_Config.USART_Baud);
 }
 
 /**************************************************************************************************
@@ -203,11 +203,12 @@ void USART_DeInit(USART_RegDef_t *pUSARTx){
 void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t Len){
 
 	uint16_t *pdata;
+	//uint8_t data;
    //Loop over until "Len" number of bytes are transferred
 	for(uint32_t i = 0 ; i < Len; i++)
 	{
 		//Implement the code to wait until TXE flag is set in the SR
-		while(! USART_GetFlagStatus(pUSARTHandle->pUSARTx,USART_SR_FLAG_TXE));
+		while(! USART_GetFlagStatus(pUSARTHandle->pUSARTx,USART_FLAG_TXE));
 
          //Check the USART_WordLength item for 9BIT or 8BIT in a frame
 		if(pUSARTHandle->USART_Config.USART_WordLength == USART_WORDLEN_9BITS)
@@ -234,7 +235,8 @@ void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t L
 		else
 		{
 			//This is 8bit data transfer
-			pUSARTHandle->pUSARTx->DR = (*pTxBuffer  & (uint8_t)0xFF);
+			//data = pUSARTHandle->pUSARTx->DR;
+			pUSARTHandle->pUSARTx->DR |= (*pTxBuffer & (uint8_t)0xFF);
 
 			//Implement the code to increment the buffer address
 			pTxBuffer++;
@@ -242,7 +244,7 @@ void USART_SendData(USART_Handle_t *pUSARTHandle, uint8_t *pTxBuffer, uint32_t L
 	}
 
 	//Implement the code to wait till TC flag is set in the SR
-	while( ! USART_GetFlagStatus(pUSARTHandle->pUSARTx,USART_SR_FLAG_TC));
+	while( ! USART_GetFlagStatus(pUSARTHandle->pUSARTx,USART_FLAG_TC));
 }
 
 
@@ -400,12 +402,83 @@ uint8_t USART_ReceiveDataIT(USART_Handle_t *pUSARTHandle,uint8_t *pRxBuffer, uin
 
 
 
-uint8_t USART_GetFlagStatus(USART_RegDef_t *pUSARTx, uint32_t FlagName){
+uint8_t USART_GetFlagStatus(USART_RegDef_t *pUSARTx, uint8_t FlagName){
 
 	if(pUSARTx->SR & FlagName){
 		return FLAG_SET;
 	}
 	return FLAG_RESET;
+}
+
+/*********************************************************************
+ * @fn      		  - USART_SetBaudRate
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -  Resolve all the TODOs
+
+ */
+void USART_SetBaudRate(USART_RegDef_t *pUSARTx, uint32_t BaudRate){
+
+	//Variable to hold the APB clock
+	uint32_t PCLKx;
+
+	uint32_t usartdiv;
+
+	//variables to hold Mantissa and Fraction values
+	uint32_t M_part,F_part;
+
+	uint32_t tempreg=0;
+
+	//Get the value of APB bus clock in to the variable PCLKx
+	if(pUSARTx == USART1){
+	   //USART1 is hanging on APB2 bus
+	   PCLKx = RCC_GetPCLK2Value();
+	}else{
+	   PCLKx = RCC_GetPCLK1Value();
+	}
+
+	//Check for OVER8 configuration bit
+	if(pUSARTx->CR1 & (1 << USART_CR1_OVER8)){
+	   //OVER8 = 1 , over sampling by 8
+	   usartdiv = ((25 * PCLKx) / (2 *BaudRate));
+	}else{
+	   //over sampling by 16
+	   usartdiv = ((25 * PCLKx) / (4 *BaudRate));
+	}
+
+	//Calculate the Mantissa part
+	M_part = usartdiv / 100;
+
+	//Place the Mantissa part in appropriate bit position . refer USART_BRR
+	tempreg |= M_part << 4;
+
+	//Extract the fraction part
+	F_part = (usartdiv - (M_part * 100));
+
+	//Calculate the final fractional
+	if(pUSARTx->CR1 & ( 1 << USART_CR1_OVER8)){
+	  //OVER8 = 1 , over sampling by 8
+	  F_part = ((( F_part * 8)+ 50) / 100)& ((uint8_t)0x07);
+
+	}else{
+	   //over sampling by 16
+	   F_part = ((( F_part * 16)+ 50) / 100) & ((uint8_t)0x0F);
+	}
+
+	//Place the fractional part in appropriate bit position . refer USART_BRR
+	tempreg |= F_part;
+
+	//copy the value of tempreg in to BRR register
+	pUSARTx->BRR = tempreg;
+	//pUSARTx->DR = 0x85;
+	//pUSARTx->BRR = 0x683;
 }
 
 

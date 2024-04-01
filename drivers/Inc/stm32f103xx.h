@@ -328,14 +328,14 @@ typedef struct{
  * Clock Enable Macros for USARTx peripherals
  */
 #define USART1_PCLK_EN()	(RCC->APB2ENR |= (1 << 14))
-#define USART2_PCLK_EN()	(RCC->APB2ENR |= (1 << 17))
-#define USART3_PCLK_EN()	(RCC->APB2ENR |= (1 << 18))
+#define USART2_PCLK_EN()	(RCC->APB1ENR |= (1 << 17))
+#define USART3_PCLK_EN()	(RCC->APB1ENR |= (1 << 18))
 
 /*
  * Clock Enable Macros for UARTx peripherals
  */
-#define UART4_PCLK_EN()		(RCC->APB2ENR |= (1 << 19))
-#define UART5_PCLK_EN()		(RCC->APB2ENR |= (1 << 20))
+#define UART4_PCLK_EN()		(RCC->APB1ENR |= (1 << 19))
+#define UART5_PCLK_EN()		(RCC->APB1ENR |= (1 << 20))
 
 /*
  * Clock Enable Macros for generic peripherals
@@ -379,14 +379,14 @@ typedef struct{
  */
 
 #define USART1_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 14))
-#define USART2_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 17))
-#define USART3_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 18))
+#define USART2_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 17))
+#define USART3_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 18))
 
 /*
  * Clock Disable Macros for UARTx peripherals
  */
-#define UART4_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 19))
-#define UART5_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 20))
+#define UART4_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 19))
+#define UART5_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 20))
 
 /*
  * Macros to reset GPIOx peripherals
@@ -702,6 +702,7 @@ typedef struct{
 #define USART_CR1_WAKE		11
 #define USART_CR1_M			12
 #define USART_CR1_UE		13
+#define USART_CR1_OVER8		15
 
 /*
  * Macros for all bit position in USART_CR2
@@ -762,7 +763,8 @@ typedef struct{
 #include"stm32f103xx_gpio_driver.h"
 #include"stm32f1xx_spi_driver.h"
 #include"stm32f103xx_i2c_driver.h"
-#include"stm32f103_usart_driver.h"
+#include<stm32f103xx_usart_driver.h>
+#include"stm32f103xx_rcc_driver.h"
 
 
 

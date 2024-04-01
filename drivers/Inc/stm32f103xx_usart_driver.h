@@ -5,8 +5,8 @@
  *      Author: arath
  */
 
-#ifndef INC_STM32F103_USART_DRIVER_H_
-#define INC_STM32F103_USART_DRIVER_H_
+#ifndef INC_STM32F103XX_USART_DRIVER_H_
+#define INC_STM32F103XX_USART_DRIVER_H_
 
 #include"stm32f103xx.h"
 
@@ -112,6 +112,23 @@ typedef struct {
 #define USART_BUSY_IN_TX 2
 #define USART_READY 	 0
 
+/*
+ * @I2C related status flags definitions
+ */
+#define I2C_FLAG_SB						(1 << I2C_SR1_SB)
+
+#define USART_FLAG_PE					(1 << USART_SR_FLAG_PE)
+#define USART_FLAG_FE					(1 << USART_SR_FLAG_FE)
+#define USART_FLAG_NE					(1 << USART_SR_FLAG_NE)
+#define USART_FLAG_ORE					(1 << USART_SR_FLAG_ORE)
+#define USART_FLAG_IDLE					(1 << USART_SR_FLAG_IDLE)
+#define USART_FLAG_RXNE					(1 << USART_SR_FLAG_RXNE)
+#define USART_FLAG_TC					(1 << USART_SR_FLAG_TC)
+#define USART_FLAG_TXE					(1 << USART_SR_FLAG_TXE)
+#define USART_FLAG_LBD					(1 << USART_SR_FLAG_LBD)
+#define USART_FLAG_CTS					(1 << USART_SR_FLAG_CTS)
+
+
 
 
 /******************************************************************************************
@@ -149,8 +166,9 @@ void USART_IRQHandling(USART_Handle_t *pHandle);
  * Other Peripheral Control APIs
  */
 void USART_PeripheralControl(USART_RegDef_t *pUSARTx, uint8_t EnOrDi);
-uint8_t USART_GetFlagStatus(USART_RegDef_t *pUSARTx , uint32_t FlagName);
+uint8_t USART_GetFlagStatus(USART_RegDef_t *pUSARTx , uint8_t FlagName);
 void USART_ClearFlag(USART_RegDef_t *pUSARTx, uint16_t StatusFlagName);
+void USART_SetBaudRate(USART_RegDef_t *pUSARTx, uint32_t BaudRate);
 
 /*
  * Application callback
@@ -164,4 +182,4 @@ void USART_ApplicationEventCallback(USART_Handle_t *pUSARTHandle,uint8_t AppEv);
 
 
 
-#endif /* INC_STM32F103_USART_DRIVER_H_ */
+#endif /* INC_STM32F103XX_USART_DRIVER_H_ */
