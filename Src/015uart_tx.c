@@ -39,7 +39,7 @@ void USART3_Init(void){
 }
 
 
-void USART2_GPIOInit(void){
+void USART3_GPIOInit(void){
 	GPIO_Handle_t usart_gpios;
 
 	usart_gpios.pGPIOx = GPIOB;
@@ -49,11 +49,11 @@ void USART2_GPIOInit(void){
 	usart_gpios.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_OUT_MHZ_50;
 	usart_gpios.GPIO_PinConfig.GPIO_PinAltFunMode = GPIO_MODE_AF_PP;
 
-	// USAT2 TX
+	// USAT3 TX
 	usart_gpios.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_10;
 	GPIO_Init(&usart_gpios);
 
-	// USAT2 RX
+	// USAT3 RX
 	usart_gpios.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_11;
 	GPIO_Init(&usart_gpios);
 }
@@ -75,7 +75,7 @@ int main(void){
 
 	GPIO_ButtonInit();
 
-	USART2_GPIOInit();
+	USART3_GPIOInit();
 
 	USART3_Init();
 

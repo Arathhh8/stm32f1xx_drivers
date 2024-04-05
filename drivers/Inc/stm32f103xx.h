@@ -452,6 +452,11 @@ typedef struct{
 #define IRQ_NO_SPI1			35
 #define IRQ_NO_SPI2			36
 #define IRQ_NO_SPI3			51
+#define IRQ_NO_USART1		37
+#define IRQ_NO_USART2		38
+#define IRQ_NO_USART3		39
+#define IRQ_NO_USART4		52
+#define IRQ_NO_USART5		53
 
 /*
  * Macros for all the possible priority levels IRQ
